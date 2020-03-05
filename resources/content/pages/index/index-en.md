@@ -1,7 +1,6 @@
 ---
-title: En (English) home page content
+title: en (English) index page content
 content:
-  about_label: About
-  select_theme: Select a theme
-  select_language: Select language
----
+  default_content: |
+    This page was created using npm run create-pages. This content can be edited in resources/content/pages/index/index-en.md. The query can be updated in src/queries/IndexPage.js. The Netlify collection can be updated in netlify/collections/pages/index.js.
+---    

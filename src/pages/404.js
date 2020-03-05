@@ -1,11 +1,16 @@
 import React from 'react'
 import Container from '@material-ui/core/Container'
 import Layout from '../components/Layout'
+import NotFoundPageQuery from '../queries/NotFoundPageQuery'
 
 export default () => (
-  <Layout>
-    <Container maxWidth='lg'>
-      <p>404 not found</p>
-    </Container>
-  </Layout>
+  <NotFoundPageQuery
+    render={(content) => (
+      <Layout>
+        <Container maxWidth='lg'>
+          <h1>{content.title}</h1>
+        </Container>
+      </Layout>
+    )}
+  />
 )

@@ -3,19 +3,21 @@ import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 import Language from '@input-output-hk/front-end-core-components/components/Language'
 
-const AboutPageQuery = ({ render }) => (
+const GlobalContentQuery = ({ render }) => (
   <Language.Consumer>
     {({ key: lang }) => (
       <StaticQuery
         query={graphql`
           query {
-            allFile(filter:{relativePath:{glob:"content/pages/about/*.md"}}) {
+            allFile(filter:{relativePath:{glob:"content/global/*.md"}}) {
               nodes{
                 relativePath,
                 childMarkdownRemark{
                   frontmatter {
                     content {
-                      home_label
+                      main_title
+                      select_language
+                      select_theme
                     }
                   }
                 }
@@ -24,8 +26,8 @@ const AboutPageQuery = ({ render }) => (
           }
         `}
         render={({ allFile }) => {
-          const content = allFile.nodes.filter(node => node.relativePath === `content/pages/about/about-${lang}.md`).shift()
-          if (!content || !content.childMarkdownRemark) throw new Error(`No about translations found for language ${lang}`)
+          const content = allFile.nodes.filter(node => node.relativePath === `content/global/global-${lang}.md`).shift()
+          if (!content || !content.childMarkdownRemark) throw new Error(`No global translations found for language ${lang}`)
           return render(content.childMarkdownRemark.frontmatter.content)
         }}
       />
@@ -33,8 +35,8 @@ const AboutPageQuery = ({ render }) => (
   </Language.Consumer>
 )
 
-AboutPageQuery.propTypes = {
+GlobalContentQuery.propTypes = {
   render: PropTypes.func.isRequired
 }
 
-export default AboutPageQuery
+export default GlobalContentQuery

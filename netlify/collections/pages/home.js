@@ -1,7 +1,7 @@
 export default {
-  name: '404_page',
-  label: '404 page',
-  folder: 'resources/content/pages/404',
+  name: 'home_page',
+  label: 'home page',
+  folder: 'resources/content/index',
   create: false,
   delete: false,
   fields: [
@@ -12,12 +12,12 @@ export default {
     },
     {
       name: 'content',
-      label: '404 page content',
+      label: 'home page content',
       widget: 'object',
       fields: [
         {
-          name: 'title',
-          label: 'Title',
+          name: 'default_content',
+          label: 'Default content',
           widget: 'string'
         }
       ]

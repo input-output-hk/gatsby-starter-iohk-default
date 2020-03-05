@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import AppBar from '@material-ui/core/AppBar'
 import Footer from '@input-output-hk/front-end-site-components/components/Footer'
 import Theme from '@input-output-hk/front-end-core-components/components/Theme'
 import Container from '@material-ui/core/Container'
+import Header from '../components/Header'
 
 const StyledMain = styled.main`
   position: relative;
@@ -15,11 +15,7 @@ const StyledMain = styled.main`
 
 const Main = ({ children }) => (
   <Fragment>
-    <AppBar position='static'>
-      <Container maxWidth='lg'>
-        <h5>IOHK Gatsby Starter</h5>
-      </Container>
-    </AppBar>
+    <Header />
     <StyledMain>
       {children}
     </StyledMain>

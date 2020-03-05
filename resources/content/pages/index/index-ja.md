@@ -1,7 +1,6 @@
 ---
-title: Ja (Japanese) home page content
+title: ja (日本語) index page content
 content:
-  about_label: 約
-  select_theme: テーマを選択
-  select_language: 言語を選択する
----
+  default_content: |
+    This page was created using npm run create-pages. This content can be edited in resources/content/pages/index/index-ja.md. The query can be updated in src/queries/IndexPage.js. The Netlify collection can be updated in netlify/collections/pages/index.js.
+---    
