@@ -1,33 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const config = require('../site.config.json')
+const { createDirectory, getResolvedPath, getQueryName } = require('./helpers')
 
 const paths = process.argv.slice(2)
-
-function createDirectory (filePath) {
-  const leadingDirectory = filePath.split(path.sep)
-  leadingDirectory.pop()
-  let nextPath
-  leadingDirectory.forEach(segment => {
-    nextPath = nextPath ? path.join(nextPath, segment) : `${path.sep}${segment}`
-    if (!fs.existsSync(nextPath) || !fs.statSync(nextPath).isDirectory) {
-      fs.mkdirSync(nextPath)
-    }
-  })
-}
-
-function getResolvedPath (normalizedPath, rootName = 'index') {
-  let resolvedPath, resolvedName
-  if (!normalizedPath) {
-    resolvedName = rootName
-    resolvedPath = resolvedName
-  } else {
-    resolvedName = normalizedPath.split('/').pop()
-    resolvedPath = path.join(...normalizedPath.split('/'))
-  }
-
-  return [ resolvedPath, resolvedName ]
-}
 
 function createNetlifyCollection (normalizedPath) {
   const [ markdownRelativePath ] = getResolvedPath(normalizedPath)
@@ -80,13 +56,6 @@ function createNetlifyCollection (normalizedPath) {
 
   fs.writeFileSync(indexPath, newIndexContent, { encoding: 'utf8' })
   console.log('Netlify collection index updated')
-}
-
-function getQueryName (normalizedPath) {
-  if (!normalizedPath) return 'Index'
-  return normalizedPath.split('/').map(part => {
-    return part.split('-').map(word => `${word[0].toUpperCase()}${word.split('').slice(1).join('').toLowerCase()}`).join('-')
-  }).join('')
 }
 
 function createMarkdown (normalizedPath) {
