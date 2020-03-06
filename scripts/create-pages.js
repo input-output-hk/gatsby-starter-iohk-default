@@ -140,7 +140,7 @@ export default ${queryName}PageQuery
 }
 
 function createMeta (normalizedPath) {
-  let title = normalizedPath.split('/').pop()
+  let title = normalizedPath.split('/').pop() || 'home'
   title = `${title[0].toUpperCase()}${title.split('').slice(1).join('')}`
 
   const metaDataName = getMetaDataFilename(normalizedPath)
@@ -148,8 +148,7 @@ function createMeta (normalizedPath) {
   config.availableLanguages.forEach(language => {
     const localizedMetaFileName = `${metaDataName}-${language.key}.md`
     const metaFileRelativePath = path.join(metaRelativePath, localizedMetaFileName)
-    const metaContent = `
----
+    const metaContent = `---
 title: ${language.key} (${language.label}) site content
 head:
   title: ${title}
@@ -164,7 +163,7 @@ head:
       console.log(`Meta data already exists ${metaFileRelativePath}`)
     } else {
       fs.writeFileSync(fullPath, metaContent, { encoding: 'utf8' })
-      console.log(`Query created ${metaFileRelativePath}`)
+      console.log(`Meta data created ${metaFileRelativePath}`)
     }
   })
 }
