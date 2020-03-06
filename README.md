@@ -2,6 +2,10 @@
 
 The [Gatsby](https://www.gatsbyjs.org/) starter template used by [IOHK](https://iohk.io/) to build front-end web assets.
 
+```
+gatsby new gatsby-starter-iohk-default https://github.com/input-output-hk/gatsby-starter-iohk-default
+```
+
 ## Features
 
 * Localization
@@ -14,7 +18,7 @@ The [Gatsby](https://www.gatsbyjs.org/) starter template used by [IOHK](https://
 
 ## Configuration
 
-The starter can be configured through the `package.json` file under the `iohk-gatsby-starter` key.
+The starter can be configured through the `package.json` file under the `gatsby-starter-iohk-default` key.
 
 | Option | Notes |
 | ------ | ----- |

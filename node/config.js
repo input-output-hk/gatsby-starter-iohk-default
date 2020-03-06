@@ -1,2 +1,2 @@
 const packageConfig = require('../package.json')
-module.exports = packageConfig['iohk-gatsby-starter']
+module.exports = packageConfig['gatsby-starter-iohk-default']

@@ -1,6 +1,6 @@
 {
-  "name": "iohk-gatsby-starter",
-  "description": "IOHK Gatsby starter",
+  "name": "gatsby-starter-iohk-default",
+  "description": "IOHK's default Gatsby starter",
   "version": "0.0.1",
   "author": "Lewis Nelson <lewis.nelson@iohk.io>",
   "dependencies": {
@@ -27,7 +27,8 @@
   "keywords": [
     "gatsby",
     "starter",
-    "iohk"
+    "iohk",
+    "default"
   ],
   "license": "MIT",
   "scripts": {
@@ -69,9 +70,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/input-output-hk/iohk-gatsby-starter"
+    "url": "https://github.com/input-output-hk/gatsby-starter-iohk-default"
   },
-  "iohk-gatsby-starter": {
+  "gatsby-starter-iohk-default": {
     "availableLanguages": [
       { "key": "en", "label": "English", "flag": "🇺🇸", "locale": "en_US" },
       { "key": "ja", "label": "日本語", "flag": "🇯🇵", "locale": "ja_JA" }
