@@ -1,7 +1,7 @@
 {
   "name": "gatsby-starter-iohk-default",
   "description": "IOHK's default Gatsby starter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Lewis Nelson <lewis.nelson@iohk.io>",
   "dependencies": {
     "@input-output-hk/front-end-core-components": "^1.0.1",
@@ -74,12 +74,28 @@
   },
   "gatsby-starter-iohk-default": {
     "availableLanguages": [
-      { "key": "en", "label": "English", "flag": "🇺🇸", "locale": "en_US" },
-      { "key": "ja", "label": "日本語", "flag": "🇯🇵", "locale": "ja_JA" }
+      {
+        "key": "en",
+        "label": "English",
+        "flag": "🇺🇸",
+        "locale": "en_US"
+      },
+      {
+        "key": "ja",
+        "label": "日本語",
+        "flag": "🇯🇵",
+        "locale": "ja_JA"
+      }
     ],
     "alternativeLanguages": [
-      { "key": "en-us", "languageKey": "en" },
-      { "key": "en-gb", "languageKey": "en" }
+      {
+        "key": "en-us",
+        "languageKey": "en"
+      },
+      {
+        "key": "en-gb",
+        "languageKey": "en"
+      }
     ],
     "themes": [
       "atala",
