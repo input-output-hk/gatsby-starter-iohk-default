@@ -1,4 +1,4 @@
-import config from '../site.config.json'
+import config from '../src/config'
 
 // We control this through package.json scripts
 export const isProduction = () => process.env.NODE_ENV === 'production'

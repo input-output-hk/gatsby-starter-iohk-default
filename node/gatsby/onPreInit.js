@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const config = require('../config')
 
 const setupEnvironment = ({ program }) => {
   if (!process.env.GATSBY_URL) {
@@ -15,6 +16,8 @@ const setupEnvironment = ({ program }) => {
       process.env.GATSBY_URL = 'http://127.0.0.1:1234'
     }
   }
+
+  process.env.GATSBY_IOHK_STARTER_CONFIG = JSON.stringify(config)
 }
 
 module.exports = async ({ store }) => {

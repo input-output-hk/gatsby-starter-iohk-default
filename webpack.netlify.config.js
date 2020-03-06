@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const path = require('path')
 const fs = require('fs')
 const environment = require('./node/environment')
+const config = require('./node/config')
 
 const getRandomString = () => {
   let s = ''
@@ -50,7 +51,8 @@ module.exports = {
       NODE_ENV: 'development',
       // Branch exposed by netlify build https://www.netlify.com/docs/continuous-deployment/#environment-variables
       HEAD: 'staging',
-      UPLOADCARE_PUBLIC_KEY: 'demopublickey'
+      UPLOADCARE_PUBLIC_KEY: 'demopublickey',
+      GATSBY_IOHK_STARTER_CONFIG: JSON.stringify(config)
     })
   ]
 }

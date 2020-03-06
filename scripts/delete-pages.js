@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const config = require('../site.config.json')
+const config = require('../node/config')
 const { deleteEmptyDirectory, getResolvedPath, getQueryName } = require('./helpers')
 
 const paths = process.argv.slice(2)

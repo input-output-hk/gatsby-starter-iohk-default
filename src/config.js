@@ -1,5 +1,3 @@
-import siteConfig from '../site.config.json'
-
 export default {
-  ...siteConfig
+  ...(JSON.parse(process.env.GATSBY_IOHK_STARTER_CONFIG))
 }

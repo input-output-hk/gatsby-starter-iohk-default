@@ -1,4 +1,4 @@
-const config = require('../../site.config.json')
+const config = require('../config')
 const { addToSitemap } = require('./sitemap')
 
 const defaultPagesToIgnore = [
