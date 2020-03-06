@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const config = require('../node/config')
-const { createDirectory, getResolvedPath, getQueryName, getMetaDataFilename } = require('./helpers')
+const { createDirectory, getResolvedPath, getQueryName, getMetaDataFilename, capitalize, getNetlifyImport } = require('./helpers')
 
 const paths = process.argv.slice(2)
 
@@ -48,10 +48,11 @@ function createNetlifyCollection (normalizedPath) {
 
   const indexPath = path.join(__dirname, '..', 'netlify', 'collections', 'pages', 'index.js')
   const indexContent = fs.readFileSync(indexPath, { encoding: 'utf8' })
+  const [ importName, importPath ] = getNetlifyImport(resolvedPath)
   const newIndexContent = indexContent
-    .replace(/(import\s[^\s]+\sfrom\s'[^']+'\n)/, `$1import ${resolvedPath.replace(path.sep, '')} from './${resolvedPath.split(path.sep).join('/')}'\n`)
+    .replace(/(import\s[^\s]+\sfrom\s'[^']+'\n)/, `$1import ${importName} from '${importPath}'\n`)
     .replace(/(export\sdefault\s\[)([^\]]+)(\])/, (_, a, b, c) => {
-      return `${a}${b.replace(/\n$/, `,\n  ${resolvedPath.replace(path.sep, '')}\n`)}${c}`
+      return `${a}${b.replace(/\n$/, `,\n  ${importName}\n`)}${c}`
     })
 
   fs.writeFileSync(indexPath, newIndexContent, { encoding: 'utf8' })
@@ -141,7 +142,7 @@ export default ${queryName}PageQuery
 
 function createMeta (normalizedPath) {
   let title = normalizedPath.split('/').pop() || 'home'
-  title = `${title[0].toUpperCase()}${title.split('').slice(1).join('')}`
+  title = title.split('-').map(word => capitalize(word)).join(' ')
 
   const metaDataName = getMetaDataFilename(normalizedPath)
   const metaRelativePath = path.join('resources', 'content', 'meta')

@@ -2,6 +2,8 @@ const helpers = module.exports = {}
 const fs = require('fs')
 const path = require('path')
 
+helpers.capitalize = (word) => `${word[0].toUpperCase()}${word.split('').slice(1).join('').toLowerCase()}`
+
 helpers.createDirectory = (filePath) => {
   const leadingDirectory = filePath.split(path.sep)
   leadingDirectory.pop()
@@ -30,8 +32,14 @@ helpers.getResolvedPath = (normalizedPath, rootName = 'index') => {
 helpers.getQueryName = (normalizedPath) => {
   if (!normalizedPath) return 'Index'
   return normalizedPath.split('/').map(part => {
-    return part.split('-').map(word => `${word[0].toUpperCase()}${word.split('').slice(1).join('').toLowerCase()}`).join('-')
+    return part.split('-').map(word => `${helpers.capitalize(word)}`).join('')
   }).join('')
+}
+
+helpers.getNetlifyImport = (relativePath) => {
+  const importName = relativePath.split(path.sep).join('').split('-').join('')
+  const importPath = `./${relativePath.split(path.sep).join('/')}`
+  return [ importName, importPath ]
 }
 
 helpers.deleteEmptyDirectory = (filePath) => {

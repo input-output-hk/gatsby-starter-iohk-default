@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const config = require('../node/config')
-const { deleteEmptyDirectory, getResolvedPath, getQueryName, getMetaDataFilename } = require('./helpers')
+const { deleteEmptyDirectory, getResolvedPath, getQueryName, getMetaDataFilename, getNetlifyImport } = require('./helpers')
 
 const paths = process.argv.slice(2)
 
@@ -19,13 +19,12 @@ function deleteNetlifyPage (normalizedPath) {
 
   const indexPath = path.join(__dirname, '..', 'netlify', 'collections', 'pages', 'index.js')
   const indexContent = fs.readFileSync(indexPath, { encoding: 'utf8' })
-  const importName = resolvedPath.replace(path.sep, '')
-  const importPath = `./${resolvedPath.split(path.sep).join('/')}`
+  const [ importName, importPath ] = getNetlifyImport(resolvedPath)
   const newIndexContent = indexContent
     .replace(new RegExp(`import\\s${importName}\\sfrom\\s'${importPath}'\\n`), '')
-    .replace(new RegExp(`(,)?[\\s]+${importName}(,)?`), (_, startDelimiter, endDelimiter) => {
-      if (endDelimiter) return `,`
-      return ``
+    .replace(new RegExp(`,?[\\s]+${importName}(,|\\n)`), (_, endDelimiter) => {
+      if (endDelimiter === ',') return ','
+      return `\n`
     })
 
   fs.writeFileSync(indexPath, newIndexContent, { encoding: 'utf8' })
