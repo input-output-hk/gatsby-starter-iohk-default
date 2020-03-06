@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const config = require('../node/config')
-const { deleteEmptyDirectory, getResolvedPath, getQueryName } = require('./helpers')
+const { deleteEmptyDirectory, getResolvedPath, getQueryName, getMetaDataFilename } = require('./helpers')
 
 const paths = process.argv.slice(2)
 
@@ -63,6 +63,23 @@ function deleteQuery (normalizedPath) {
   }
 }
 
+function deleteMeta (normalizedPath) {
+  const metaDataName = getMetaDataFilename(normalizedPath)
+  const metaRelativePath = path.join('resources', 'content', 'meta')
+  config.availableLanguages.forEach(language => {
+    const localizedMetaFileName = `${metaDataName}-${language.key}.md`
+    const metaFileRelativePath = path.join(metaRelativePath, localizedMetaFileName)
+
+    const fullPath = path.join(__dirname, '..', metaFileRelativePath)
+    if (!fs.existsSync(fullPath) || !fs.statSync(fullPath).isFile) {
+      console.log(`Meta data file for page ${fullPath} does not exist`)
+    } else {
+      fs.unlinkSync(fullPath)
+      console.log(`Meta data file deleted ${fullPath}`)
+    }
+  })
+}
+
 function deletePage (normalizedPath) {
   const [ pageRelativePath ] = getResolvedPath(normalizedPath)
 
@@ -82,5 +99,6 @@ paths.forEach(path => {
   deleteNetlifyPage(normalizedPath)
   deleteMarkdown(normalizedPath)
   deleteQuery(normalizedPath)
+  deleteMeta(normalizedPath)
   deletePage(normalizedPath)
 })

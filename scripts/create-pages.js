@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const config = require('../node/config')
-const { createDirectory, getResolvedPath, getQueryName } = require('./helpers')
+const { createDirectory, getResolvedPath, getQueryName, getMetaDataFilename } = require('./helpers')
 
 const paths = process.argv.slice(2)
 
@@ -130,13 +130,43 @@ export default ${queryName}PageQuery
 `
 
   const fullPath = path.join(__dirname, '..', queryRelativePath)
-  if (fs.existsSync(queryRelativePath) && fs.statSync(queryRelativePath).isFile) {
+  if (fs.existsSync(fullPath) && fs.statSync(fullPath).isFile) {
     console.log(`Query already exists ${queryRelativePath}`)
     return
   }
 
   fs.writeFileSync(fullPath, queryContent, { encoding: 'utf8' })
   console.log(`Query created ${queryRelativePath}`)
+}
+
+function createMeta (normalizedPath) {
+  let title = normalizedPath.split('/').pop()
+  title = `${title[0].toUpperCase()}${title.split('').slice(1).join('')}`
+
+  const metaDataName = getMetaDataFilename(normalizedPath)
+  const metaRelativePath = path.join('resources', 'content', 'meta')
+  config.availableLanguages.forEach(language => {
+    const localizedMetaFileName = `${metaDataName}-${language.key}.md`
+    const metaFileRelativePath = path.join(metaRelativePath, localizedMetaFileName)
+    const metaContent = `
+---
+title: ${language.key} (${language.label}) site content
+head:
+  title: ${title}
+  meta:
+    - { name: "twitter:title", content: "${title}", file: "" }
+    - { name: "og:title", content: "${title}", file: "" }
+---
+`
+
+    const fullPath = path.join(__dirname, '..', metaFileRelativePath)
+    if (fs.existsSync(fullPath) && fs.statSync(fullPath).isFile) {
+      console.log(`Meta data already exists ${metaFileRelativePath}`)
+    } else {
+      fs.writeFileSync(fullPath, metaContent, { encoding: 'utf8' })
+      console.log(`Query created ${metaFileRelativePath}`)
+    }
+  })
 }
 
 function createPage (normalizedPath) {
@@ -186,5 +216,6 @@ paths.forEach(path => {
   createNetlifyCollection(normalizedPath)
   createMarkdown(normalizedPath)
   createQuery(normalizedPath)
+  createMeta(normalizedPath)
   createPage(normalizedPath)
 })

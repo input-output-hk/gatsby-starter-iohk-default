@@ -10,7 +10,7 @@ const defaultPagesToIgnore = [
 
 const pagesToIgnore = [
   ...defaultPagesToIgnore,
-  ...((config.build && config.build.localized && config.build.localized.ignore) || [])
+  ...((config.build && config.localization && config.localization.ignore) || [])
 ]
 
 module.exports = ({ page, actions }) => {
@@ -23,8 +23,8 @@ module.exports = ({ page, actions }) => {
   return new Promise(resolve => {
     config.availableLanguages.forEach(({ key }, index) => {
       let createLocalizedPages = true
-      if (config.build && config.build.localized && typeof config.build.localized.createLocalizedPages === 'boolean') {
-        createLocalizedPages = config.build.localized.createLocalizedPages
+      if (config.build && config.localization && typeof config.localization.createLocalizedPages === 'boolean') {
+        createLocalizedPages = config.localization.createLocalizedPages
       }
 
       if (createLocalizedPages) {
@@ -38,8 +38,8 @@ module.exports = ({ page, actions }) => {
       }
 
       let createDefaultPages = true
-      if (config.build && config.build.localized && typeof config.build.localized.createDefaultPages === 'boolean') {
-        createDefaultPages = config.build.localized.createDefaultPages
+      if (config.build && config.localization && typeof config.localization.createDefaultPages === 'boolean') {
+        createDefaultPages = config.localization.createDefaultPages
       }
 
       if (index === 0 && createDefaultPages) {

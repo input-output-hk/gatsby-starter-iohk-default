@@ -17,7 +17,7 @@ const setupEnvironment = ({ program }) => {
     }
   }
 
-  process.env.GATSBY_IOHK_STARTER_CONFIG = JSON.stringify(config)
+  if (!process.env.GATSBY_IOHK_STARTER_CONFIG) process.env.GATSBY_IOHK_STARTER_CONFIG = JSON.stringify(config)
 }
 
 module.exports = async ({ store }) => {

@@ -50,3 +50,7 @@ helpers.deleteEmptyDirectory = (filePath) => {
     leadingDirectory.pop()
   }
 }
+
+helpers.getMetaDataFilename = (normalizedPath) => {
+  return normalizedPath.split('/').join('___')
+}

@@ -34,6 +34,7 @@
     "build": "npm run clean && gatsby build && npm run build:netlify-prod",
     "build:netlify": "webpack --config webpack.netlify.config.js",
     "build:netlify-prod": "NODE_ENV=production webpack --config webpack.netlify.config.js",
+    "ci": "npm run lint && npm run build",
     "clean": "gatsby clean",
     "create-pages": "node ./scripts/create-pages.js",
     "delete-pages": "node ./scripts/delete-pages.js",
@@ -79,7 +80,7 @@
       { "key": "en-us", "languageKey": "en" },
       { "key": "en-gb", "languageKey": "en" }
     ],
-    "availableThemes": [
+    "themes": [
       "atala",
       "cardano",
       "iohk"
@@ -87,12 +88,13 @@
     "ga": {
       "trackingID": null
     },
-    "build": {
-      "localized": {
-        "createLocalizedPages": true,
-        "ignore": [],
-        "createDefaultPages": true
-      }
+    "localization": {
+      "createLocalizedPages": true,
+      "ignore": [],
+      "createDefaultPages": true,
+      "useURL": true,
+      "useNavigator": true,
+      "persistLang": true
     }
   }
 }

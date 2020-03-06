@@ -5,12 +5,12 @@ import Language from '@input-output-hk/front-end-core-components/components/Lang
 import Theme from '@input-output-hk/front-end-core-components/components/Theme'
 import { Provider as LinkProvider } from '@input-output-hk/front-end-core-components/components/Link'
 import Styles from '@input-output-hk/front-end-site-components/components/Styles'
-import * as themes from '@input-output-hk/front-end-themes'
 import { ThemeProvider as MaterialUIThemeProvider } from '@material-ui/core/styles'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import { analytics, theme } from '@input-output-hk/front-end-core-libraries'
 import { navigate, Link as GatsbyLink } from 'gatsby'
 import config from './config'
+import { getThemes } from './themes'
 
 // Used to render all links via @input-output-hk/front-end-core-components/components/Link
 const Link = (props) => {
@@ -50,10 +50,6 @@ const App = ({ element }) => {
     if (prevTheme && theme !== prevTheme) analytics.autoCapture({ category: analytics.constants.THEME, action: 'theme_updated', label: theme })
   }
 
-  function getThemes () {
-    return config.availableThemes.map(key => ({ key, config: themes[key] }))
-  }
-
   return (
     <Location>
       {({ location: { pathname, search, hash } }) => (
@@ -62,6 +58,9 @@ const App = ({ element }) => {
           availableLanguages={config.availableLanguages}
           alternativeLanguages={config.alternativeLanguages}
           onUpdate={languageOnUpdate}
+          useURL={config.localization.useURL}
+          useNavigator={config.localization.useNavigator}
+          persistLang={config.localization.persistLang}
         >
           <Theme.Provider
             themes={getThemes()}
