@@ -151,6 +151,8 @@ The meta data is consumed inside the `Layout` component in `src/components/Layou
 
 To setup with Netlify hosting simply link your repository to Netlify creating a new site and set the build command to `npm run ci` and the publish directory to `public/`. The `ci` script will run linting as well as building the site and can be extended to run tests etc. should you wish to add automated testing.
 
+To access the CMS go to `/admin/` and you will be redirected to the login/CMS page depending on your Netlify configuration.
+
 ## Uploadcare
 
 The starter has integration with [Uploadcare](https://uploadcare.com/), but can be used without Uploadcare. To use Netlify CMS without Uploadcare edit the `netlify/index.js` config to replace the Uploadcare config with something else. For example choosing to host images locally:
