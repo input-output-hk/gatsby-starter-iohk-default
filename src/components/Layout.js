@@ -64,8 +64,8 @@ const Layout = ({ children, headData = {}, Template = Main }) => (
                       ? 'index'
                       : uriPathWithoutLang.replace(/^\//, '').replace(/\/$/, '').replace(/\//g, '___')
 
-                    const page = pageHeadData.nodes.filter(node => node.relativePath === `content/meta/${pageContentPath}.${lang}.md`).shift()
-                    const site = siteHeadData.nodes.filter(node => node.relativePath === `content/meta/__site.${lang}.md`).shift()
+                    const page = pageHeadData.nodes.filter(node => node.relativePath === `content/meta/${pageContentPath}-${lang}.md`).shift()
+                    const site = siteHeadData.nodes.filter(node => node.relativePath === `content/meta/__site-${lang}.md`).shift()
 
                     return (
                       <Head
