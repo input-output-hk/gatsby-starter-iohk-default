@@ -32,7 +32,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "npm run clean && gatsby build && npm run build:netlify-prod && build:netlify-toml",
+    "build": "npm run clean && gatsby build && npm run build:netlify-prod && npm run build:netlify-toml",
     "build:netlify": "webpack --config webpack.netlify.config.js",
     "build:netlify-prod": "NODE_ENV=production webpack --config webpack.netlify.config.js",
     "build:netlify-toml": "node ./scripts/build-netlify-toml.js",
