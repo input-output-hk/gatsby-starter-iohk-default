@@ -114,6 +114,15 @@
       "useNavigator": true,
       "persistLang": true
     },
-    "routes": []
+    "routes": [
+      {
+        "path": "/test/:id",
+        "component": "TestRoute"
+      },
+      {
+        "path": "/test/:id/:somethingElse",
+        "component": "TestRouteSomething"
+      }
+    ]
   }
 }
