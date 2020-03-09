@@ -12,7 +12,6 @@ function addRedirect (staticPath, content) {
   from = "${staticPath}*"
   to = "${staticPath}"
   status = 200
-  force = true
 `
 
   redirects[staticPath] = true
