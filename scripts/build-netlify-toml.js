@@ -7,7 +7,6 @@ const redirects = {}
 function addRedirect (staticPath, content) {
   if (redirects[staticPath]) return content
   const withRedirect = `${content}
-
 [[redirects]]
   from = "${staticPath}*"
   to = "${staticPath}"
