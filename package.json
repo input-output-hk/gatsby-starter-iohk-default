@@ -32,9 +32,10 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "npm run clean && gatsby build && npm run build:netlify-prod",
+    "build": "npm run clean && gatsby build && npm run build:netlify-prod && build:netlify-toml",
     "build:netlify": "webpack --config webpack.netlify.config.js",
     "build:netlify-prod": "NODE_ENV=production webpack --config webpack.netlify.config.js",
+    "build:netlify-toml": "node ./scripts/build-netlify-toml.js",
     "ci": "npm run lint && npm run build",
     "clean": "gatsby clean",
     "create-pages": "node ./scripts/create-pages.js",
@@ -112,6 +113,7 @@
       "useURL": true,
       "useNavigator": true,
       "persistLang": true
-    }
+    },
+    "routes": []
   }
 }
