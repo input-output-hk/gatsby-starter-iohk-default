@@ -73,5 +73,27 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/input-output-hk/gatsby-starter-iohk-default"
+  },
+  "gatsby-starter-iohk-default": {
+    "availableLanguages": [
+      {
+        "key": "en",
+        "label": "English",
+        "flag": "🇺🇸",
+        "locale": "en_US"
+      }
+    ],
+    "alternativeLanguages": [],
+    "themes": [ "cardano" ],
+    "ga": { "trackingId": null },
+    "localization": {
+      "createLocalizedPages": true,
+      "ignore": [],
+      "createDefaultPages": true,
+      "useURL": true,
+      "useNavigator": true,
+      "persistLang": true
+    },
+    "routes": []
   }
 }
