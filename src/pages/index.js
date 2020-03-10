@@ -4,7 +4,6 @@ import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Layout from '../components/Layout'
 import IndexPageQuery from '../queries/IndexPageQuery'
-import Link from '@input-output-hk/front-end-core-components/components/Link'
 
 export default () => (
   <IndexPageQuery
@@ -15,7 +14,6 @@ export default () => (
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <p>{content.default_content}</p>
-                <Link href='/test/1'>Test 1</Link>
               </Grid>
             </Grid>
           </Box>
