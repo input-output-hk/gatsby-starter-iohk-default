@@ -118,12 +118,12 @@
     },
     "routes": [
       {
-        "path": "/test/:id",
-        "component": "TestRoute"
-      },
-      {
         "path": "/test/:id/:somethingElse",
         "component": "TestRouteSomething"
+      },
+      {
+        "path": "/test/:id",
+        "component": "TestRoute"
       }
     ]
   }
