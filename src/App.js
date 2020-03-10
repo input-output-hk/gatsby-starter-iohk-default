@@ -65,7 +65,7 @@ const App = ({ element }) => {
       return routes
     })
 
-    return routes.reduce((c = [], a) => [ ...c, ...a ])
+    return routes.reduce((accumulator, currentValue) => [ ...accumulator, ...currentValue ], [])
   }
 
   return (

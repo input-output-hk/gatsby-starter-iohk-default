@@ -41,12 +41,11 @@
     "create-pages": "node ./scripts/create-pages.js",
     "delete-pages": "node ./scripts/delete-pages.js",
     "develop": "gatsby develop",
-    "lint": "eslint src/",
+    "lint": "eslint netlify/ node/ scripts/ src/ *.js",
     "lint:changed": "eslint",
     "postinstall": "./scripts/post-install.sh",
     "start": "npm run develop",
     "serve": "node ./scripts/serve",
-    "serve:coverage": "open coverage/lcov-report/index.html",
     "watch:netlify": "NODE_ENV=development npm run build:netlify -- --watch"
   },
   "devDependencies": {
@@ -74,57 +73,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/input-output-hk/gatsby-starter-iohk-default"
-  },
-  "gatsby-starter-iohk-default": {
-    "availableLanguages": [
-      {
-        "key": "en",
-        "label": "English",
-        "flag": "🇺🇸",
-        "locale": "en_US"
-      },
-      {
-        "key": "ja",
-        "label": "日本語",
-        "flag": "🇯🇵",
-        "locale": "ja_JA"
-      }
-    ],
-    "alternativeLanguages": [
-      {
-        "key": "en-us",
-        "languageKey": "en"
-      },
-      {
-        "key": "en-gb",
-        "languageKey": "en"
-      }
-    ],
-    "themes": [
-      "atala",
-      "cardano",
-      "iohk"
-    ],
-    "ga": {
-      "trackingID": null
-    },
-    "localization": {
-      "createLocalizedPages": true,
-      "ignore": [],
-      "createDefaultPages": true,
-      "useURL": true,
-      "useNavigator": true,
-      "persistLang": true
-    },
-    "routes": [
-      {
-        "path": "/test/:id/:somethingElse",
-        "component": "TestRouteSomething"
-      },
-      {
-        "path": "/test/:id",
-        "component": "TestRoute"
-      }
-    ]
   }
 }
