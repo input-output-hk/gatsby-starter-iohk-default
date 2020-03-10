@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Location } from '@reach/router'
+import { Location, Router } from '@reach/router'
 import Language from '@input-output-hk/front-end-core-components/components/Language'
 import Theme from '@input-output-hk/front-end-core-components/components/Theme'
 import { Provider as LinkProvider } from '@input-output-hk/front-end-core-components/components/Link'
@@ -11,6 +11,10 @@ import { analytics, theme } from '@input-output-hk/front-end-core-libraries'
 import { navigate, Link as GatsbyLink } from 'gatsby'
 import config from './config'
 import { getThemes } from './themes'
+
+// Default route uses SSR from "pages"
+const DefaultRoute = ({ element }) => element
+DefaultRoute.propTypes = { element: PropTypes.node.isRequired }
 
 // Used to render all links via @input-output-hk/front-end-core-components/components/Link
 const Link = (props) => {
@@ -50,6 +54,20 @@ const App = ({ element }) => {
     if (prevTheme && theme !== prevTheme) analytics.autoCapture({ category: analytics.constants.THEME, action: 'theme_updated', label: theme })
   }
 
+  function getRoutes (lang) {
+    const routes = config.routes.map(({ path, component, props }) => {
+      const Component = require(`./routes/${component}.js`).default
+      const routes = [ <Component {...props} path={path} key={path} /> ]
+      if (config.localization.createLocalizedPages && config.localization.createDefaultPages) {
+        routes.push(<Component {...props} key={`/${lang}${path}`} path={`/${lang}${path}`} />)
+      }
+
+      return routes
+    })
+
+    return routes.reduce((accumulator, currentValue) => [ ...accumulator, ...currentValue ], [])
+  }
+
   return (
     <Location>
       {({ location: { pathname, search, hash } }) => (
@@ -75,7 +93,10 @@ const App = ({ element }) => {
                       {({ key: lang }) => (
                         <LinkProvider lang={lang} component={Link}>
                           <Styles theme={originalTheme.config} />
-                          {element}
+                          <Router>
+                            {getRoutes(lang)}
+                            <DefaultRoute default element={element} />
+                          </Router>
                         </LinkProvider>
                       )}
                     </Language.Consumer>

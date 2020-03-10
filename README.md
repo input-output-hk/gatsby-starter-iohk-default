@@ -6,9 +6,12 @@ The [Gatsby](https://www.gatsbyjs.org/) starter template used by [IOHK](https://
 gatsby new gatsby-starter-iohk-default https://github.com/input-output-hk/gatsby-starter-iohk-default
 ```
 
+If you use VisualStudio Code then it's recommended that you download the [code tour](https://github.com/vsls-contrib/code-tour) extension to make use of the guided tours of the codebase. Otherwise the documentation below should be sufficient. The tours will be setup on `npm install`.
+
 ## Features
 
 * Localization
+* [Client side routing](#client-side-routing)
 * Theming - multiple themes
 * Netlify CMS
 * Material UI
@@ -16,30 +19,50 @@ gatsby new gatsby-starter-iohk-default https://github.com/input-output-hk/gatsby
 * Configured for Netlify hosting, compatible with other hosting options
 * Fully configurable
 
+## Scripts
+
+* `npm run build` - runs a full static build
+* `npm run build:netlify` - webpack build of Netlify CMS bundle in `netlify/index.js`
+* `npm run build:netlify-prod` - production build of Netlify CMS bundle
+* `npm run build:netlify-toml` - builds the `netlify.toml` configuration, generating config as well as combining with `.netlify.toml`
+* `npm run ci` - CI task to perform for building, will run linter as well
+* `npm run clean` - `gatsby clean`, the same as running `./node_modules/.bin/gatsby clean`
+* `npm run create-pages` - custom script to create pages see [creating pages](#creating-pages)
+* `npm run delete-pages` - custom script to delete pages see [deleting pages](#deleting-pages)
+* `npm run develop` - `gatsby develop`, the same as running `./node_modules/.bin/gatsby develop`
+* `npm run lint` - runs eslint on all `.js` files
+* `npm run lint:changed` - used by git hook on pre-commit to detect bad code changes which fail linting
+* `npm start` - proxy to `npm run develop`
+* `npm run serve` - serves the static build in public and replicates server hosting on Netlify
+* `npm run watch:netlify` - watches the Netlify folder and regenerates the Netlify bundle, useful for development on Netlify CMS configuration
+
 ## Configuration
 
-The starter can be configured through the `package.json` file under the `gatsby-starter-iohk-default` key.
+The starter can be configured through the `package.json` file under the `gatsby-starter-iohk-default` key. All configuration is safe to delete. The configuration shipped with the starter is the default configuration that is used for missing configuration.
 
 | Option | Notes |
 | ------ | ----- |
 | availableLanguages | Array of languages available on the site, used to build localized pages and content. |
-| availableLanguages.key | Language key, e.g. `en`, `en-us`, `fr`, `ja`, `zh-cn` etc. Corresponds with resource naming and URL construction. |
-| availableLanguages.label | Label for the language e.g. `English`, `English (US)`, `Français`, `日本語`, `简体中文`. |
-| availableLanguages.flag | Optional emoji flag for the language e.g. 🇺🇸, 🇫🇷, 🇯🇵, 🇨🇳 |
-| availableLanguages.locale | Locale for the language e.g. `en_US`, `fr_FR`, `zh_CN` etc. |
+| availableLanguages[].key | Language key, e.g. `en`, `en-us`, `fr`, `ja`, `zh-cn` etc. Corresponds with resource naming and URL construction. |
+| availableLanguages[].label | Label for the language e.g. `English`, `English (US)`, `Français`, `日本語`, `简体中文`. |
+| availableLanguages[].flag | Optional emoji flag for the language e.g. 🇺🇸, 🇫🇷, 🇯🇵, 🇨🇳 |
+| availableLanguages[].locale | Locale for the language e.g. `en_US`, `fr_FR`, `zh_CN` etc. |
 | alternativeLanguages | Array of alternative languages which resolve to an available language. |
-| alternativeLanguages.key | The language of the alternative language e.g. `en-gb`, `fr-fr` etc. |
-| alternativeLanguages.languageKey | The language to resolve to from availableLanguages e.g. `en`, `fr` |
+| alternativeLanguages[].key | The language of the alternative language e.g. `en-gb`, `fr-fr` etc. |
+| alternativeLanguages[].languageKey | The language to resolve to from availableLanguages e.g. `en`, `fr` |
 | themes | List of themes, used in `src/themes.js` to resolve themes from [@input-output-hk/front-end-themes](https://npmjs.com/package/@input-output-hk/front-end-themes) by default and consumed by [@input-output-hk/front-end-core-components/components/Theme](https://github.com/input-output-hk/front-end-core-components/blob/master/docs/components/Theme.md). Behaviour can be changes in `src/themes.js` and  `src/App.js`. |
 | ga | Google Analytics. |
 | ga.trackingID | Tracking ID for GA property. Setup on [@input-output-hk/front-end-core-libraries analytics](https://github.com/input-output-hk/front-end-core-libraries/blob/master/docs/libraries/analytics.md). Analytics setup in `gatsby-browser.js`. |
 | localization | Localization related configuration. |
-| createLocalizedPages | Boolean, whether to create localized pages or not on build. |
-| ignore | List of pages to ignore on build when creating localized pages |
-| createDefaultPages | Boolean, should default pages be created? For example the first language in `availableLanguages` being `en` - `/en/` and `/` will be created for the index page when createDefaultPages is true. |
-| useURL | Boolean, use the URL to store and read localization state? Used in `src/App.js` passed to [@input-output-hk/front-end-core-components/components/Language](https://github.com/input-output-hk/front-end-core-components/blob/master/docs/components/Language.md). |
-| useNavigator | Boolean, use the users OS language? Used in `src/App.js` passed to [@input-output-hk/front-end-core-components/components/Language](https://github.com/input-output-hk/front-end-core-components/blob/master/docs/components/Language.md). |
-| persistLang | Boolean, persist the language to local storage? Used in `src/App.js` passed to [@input-output-hk/front-end-core-components/components/Language](https://github.com/input-output-hk/front-end-core-components/blob/master/docs/components/Language.md). |
+| localization.createLocalizedPages | Boolean, whether to create localized pages or not on build. |
+| localization.ignore | List of pages to ignore on build when creating localized pages |
+| localization.createDefaultPages | Boolean, should default pages be created? For example the first language in `availableLanguages` being `en` - `/en/` and `/` will be created for the index page when createDefaultPages is true. |
+| localization.useURL | Boolean, use the URL to store and read localization state? Used in `src/App.js` passed to [@input-output-hk/front-end-core-components/components/Language](https://github.com/input-output-hk/front-end-core-components/blob/master/docs/components/Language.md). |
+| localization.useNavigator | Boolean, use the users OS language? Used in `src/App.js` passed to [@input-output-hk/front-end-core-components/components/Language](https://github.com/input-output-hk/front-end-core-components/blob/master/docs/components/Language.md). |
+| localization.persistLang | Boolean, persist the language to local storage? Used in `src/App.js` passed to [@input-output-hk/front-end-core-components/components/Language](https://github.com/input-output-hk/front-end-core-components/blob/master/docs/components/Language.md). |
+| routes | Array, list of client only routes handled by [@reach/router](https://www.npmjs.com/package/@reach/router). Netlify and Gatsby are automatically configured based on this configuration. |
+| routes[].path | String, the path used by [@reach/router](https://reach.tech/router/tutorial/05-url-parameters). |
+| routes[].component | String, the relative path to the component used to render the route from `src/routes/` minus the `.js` extension. For example `MyRoute` would resolve to `src/routes/MyRoute.js`. |
 
 ## Environment variables
 
@@ -181,3 +204,30 @@ init({ config })
 ```
 
 Uploaded images in Netlify will be stored at `static/images/uploads`.
+
+## Client side routing
+
+Optionally you can implement client side routing through the configuration on `routes`. This will enable client only routes for your application. For example you have thousands of data points which change often and dynamically, you may want to create a client side route as it could perform better than SSR. The main issue with client only routes on statically generated sites is letting the server know the client handles specific "glob" paths. This is taken care of for Netlify hosting, the `netlify.toml` file is generated on build using the `routes` configuration as well as the static `.netlify.toml` file for custom Netlify toml configuration.
+
+When a client side route is requested the server will rewrite the URL to the "static" part of the path, for example `/my-data/:id/` would have a rewrite to `/my-data/` with a corresponding static file which uses the `src/routes/Fallback.js` component. The `Fallback` component determines whether or not the URL matches the path of the client side route and displays the 404 page when the route does not match. Of course the drawback here is the server responds with a 200 status regardless of whether or not there is any content present, there's no way of getting around this.
+
+Using the above example for `/my-data/:id/` the expected build output would be to create a static file under `public/my-data/index.html` using the `Fallback` component. In `netlify.toml` we'd expect to see something like this: (note each available language is supported when configured to do so)
+
+```
+[[redirects]]
+  from = "/my-data/*"
+  to = "/my-data/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/en/my-data/*"
+  to = "/en/my-data/index.html"
+  status = 200
+```
+
+This means when navigating to:
+
+* `/my-data/` you will be served with the `Fallback` component rendering a 404 page with a 200 status code. Client side routing will not match the route and only the 404 page will be visible.
+* `/my-data/123/` you will be served with the `Fallback` component rendering nothing, at which point client side routing will render the corresponding component for the route and the `:id` parameter can be handled there.
+
+Server behaviour cannot be easily tested through `gatsby serve` or `gatsby develop`, there is a script `npm run serve` which will spin up an [express](https://www.npmjs.com/package/express) server which will replicate the hosting configuration on Netlify to assist with testing server behaviour locally.
