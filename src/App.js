@@ -54,6 +54,20 @@ const App = ({ element }) => {
     if (prevTheme && theme !== prevTheme) analytics.autoCapture({ category: analytics.constants.THEME, action: 'theme_updated', label: theme })
   }
 
+  function getRoutes (lang) {
+    const routes = config.routes.map(({ path, component, props }) => {
+      const Component = require(`./routes/${component}.js`).default
+      const routes = [ <Component {...props} path={path} key={path} /> ]
+      if (config.localization.createLocalizedPages && config.localization.createDefaultPages) {
+        routes.push(<Component {...props} key={`/${lang}${path}`} path={`/${lang}${path}`} />)
+      }
+
+      return routes
+    })
+
+    return routes.reduce((c = [], a) => [ ...c, ...a ])
+  }
+
   return (
     <Location>
       {({ location: { pathname, search, hash } }) => (
@@ -80,15 +94,7 @@ const App = ({ element }) => {
                         <LinkProvider lang={lang} component={Link}>
                           <Styles theme={originalTheme.config} />
                           <Router>
-                            {config.routes.map(({ path, component, props }) => {
-                              const Component = require(`./routes/${component}.js`).default
-                              const routes = [ <Component {...props} path={path} key={path} /> ]
-                              if (config.localization.createLocalizedPages && config.localization.createDefaultPages) {
-                                routes.push(<Component {...props} key={`/${lang}${path}`} path={`/${lang}${path}`} />)
-                              }
-
-                              return routes
-                            })}
+                            {getRoutes(lang)}
                             <DefaultRoute default element={element} />
                           </Router>
                         </LinkProvider>
