@@ -6,6 +6,8 @@ The [Gatsby](https://www.gatsbyjs.org/) starter template used by [IOHK](https://
 gatsby new gatsby-starter-iohk-default https://github.com/input-output-hk/gatsby-starter-iohk-default
 ```
 
+If you use VisualStudio Code then it's recommended that you download the [code tour](https://github.com/vsls-contrib/code-tour) extension to make use of the guided tours of the codebase. Otherwise the documentation below should be sufficient. The tours will be setup on `npm install`.
+
 ## Features
 
 * Localization
