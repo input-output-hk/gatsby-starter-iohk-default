@@ -11,7 +11,8 @@ module.exports = async ({ graphql, createPage }) => {
         createPage({
           path: staticPath,
           component: fallbackRoute,
-          context: { routePath }
+          context: { routePath },
+          matchPath: `${staticPath}*`
         })
       }
 
@@ -19,7 +20,8 @@ module.exports = async ({ graphql, createPage }) => {
         createPage({
           path: `/${lang}${staticPath}`,
           component: fallbackRoute,
-          context: { routePath }
+          context: { routePath },
+          matchPath: `/${lang}${staticPath}*`
         })
       }
     })
