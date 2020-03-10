@@ -45,7 +45,7 @@
     "lint:changed": "eslint",
     "postinstall": "./scripts/post-install.sh",
     "start": "npm run develop",
-    "serve": "gatsby serve",
+    "serve": "node ./scripts/serve",
     "serve:coverage": "open coverage/lcov-report/index.html",
     "watch:netlify": "NODE_ENV=development npm run build:netlify -- --watch"
   },
@@ -66,6 +66,8 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-standard": "^4.0.1",
+    "express": "^4.17.1",
+    "portfinder": "^1.0.25",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
   },
