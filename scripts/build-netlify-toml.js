@@ -4,13 +4,13 @@ const config = require('../node/config')
 
 const redirects = {}
 
-function addRedirect (staticPath, content) {
+function addRedirect (staticPath, content, status = 200, to = null) {
   if (redirects[staticPath]) return content
   const withRedirect = `${content}
 [[redirects]]
   from = "${staticPath}*"
-  to = "${staticPath}"
-  status = 200
+  to = "${to || staticPath}"
+  status = ${status}
 `
 
   redirects[staticPath] = true
@@ -30,6 +30,10 @@ function buildNetlifyToml () {
       if (config.localization.createDefaultPages && index === 0) content = addRedirect(staticPath, content)
       if (config.localization.createLocalizedPages) content = addRedirect(`/${lang}${staticPath}`, content)
     })
+  })
+
+  config.availableLanguages.forEach(({ key: lang }) => {
+    if (config.localization.createLocalizedPages) content = addRedirect(`/${lang}/`, content, 404, `/${lang}/404/index.html`)
   })
 
   fs.writeFileSync(path.join(__dirname, '..', 'netlify.toml'), content, { encoding: 'utf-8' })
