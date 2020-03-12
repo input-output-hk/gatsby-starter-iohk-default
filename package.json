@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "author": "Lewis Nelson <lewis.nelson@iohk.io>",
   "dependencies": {
-    "@input-output-hk/front-end-core-components": "^1.0.1",
+    "@input-output-hk/front-end-core-components": "^1.0.2",
     "@input-output-hk/front-end-core-libraries": "^1.0.1",
     "@input-output-hk/front-end-site-components": "^1.0.0",
     "@input-output-hk/front-end-themes": "^1.0.0",
@@ -84,8 +84,12 @@
       }
     ],
     "alternativeLanguages": [],
-    "themes": [ "cardano" ],
-    "ga": { "trackingId": null },
+    "themes": [
+      "cardano"
+    ],
+    "ga": {
+      "trackingId": null
+    },
     "localization": {
       "createLocalizedPages": true,
       "ignore": [],
