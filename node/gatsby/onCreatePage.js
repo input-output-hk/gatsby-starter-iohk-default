@@ -16,7 +16,7 @@ function createLocalized404Pages ({ createPage, page }) {
   return new Promise(resolve => {
     config.availableLanguages.forEach(({ key }) => {
       let createLocalizedPages = true
-      if (config.build && config.localization && typeof config.localization.createLocalizedPages === 'boolean') {
+      if (config.localization && typeof config.localization.createLocalizedPages === 'boolean') {
         createLocalizedPages = config.localization.createLocalizedPages
       }
 
@@ -45,7 +45,7 @@ module.exports = ({ page, actions }) => {
   return new Promise(resolve => {
     config.availableLanguages.forEach(({ key }, index) => {
       let createLocalizedPages = true
-      if (config.build && config.localization && typeof config.localization.createLocalizedPages === 'boolean') {
+      if (config.localization && typeof config.localization.createLocalizedPages === 'boolean') {
         createLocalizedPages = config.localization.createLocalizedPages
       }
 
@@ -60,7 +60,7 @@ module.exports = ({ page, actions }) => {
       }
 
       let createDefaultPages = true
-      if (config.build && config.localization && typeof config.localization.createDefaultPages === 'boolean') {
+      if (config.localization && typeof config.localization.createDefaultPages === 'boolean') {
         createDefaultPages = config.localization.createDefaultPages
       }
 
