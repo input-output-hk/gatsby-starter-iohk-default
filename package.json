@@ -1,7 +1,7 @@
 {
   "name": "gatsby-starter-iohk-default",
   "description": "IOHK's default Gatsby starter",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Lewis Nelson <lewis.nelson@iohk.io>",
   "dependencies": {
     "@input-output-hk/front-end-core-components": "^1.0.2",
